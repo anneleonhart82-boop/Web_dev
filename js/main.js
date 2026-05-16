@@ -59,19 +59,17 @@ function formatIndianPrice(price) {
     return new Intl.NumberFormat('en-IN').format(price);
 }
 // Ye indian format mai number show karta 
-
 function getFilteredProducts() {     // ye product ko filter karta hai based on category or search text
-    let filtered = [...productDatabase];  //Saare product ki copy 
-    if (activeCategory !== "all") {        // Ager user ne koi specific category choose ki like shoes to sirf wahi product aayenge
-        filtered = filtered.filter(p => p.category === activeCategory);    
+let filtered = [...productDatabase];  //Saare product ki copy 
+if (activeCategory !== "all") {        // Ager user ne koi specific category choose ki like shoes to sirf wahi product aayenge
+filtered = filtered.filter(p => p.category === activeCategory);    
     }
-    if (searchQuery.trim() !== "") {
-        let q = searchQuery.toLowerCase();
-        filtered = filtered.filter(p => p.name.toLowerCase().includes(q));   // jo user search karega wahi product aayenge
-    }
-    return filtered;
+if (searchQuery.trim() !== "") {
+let q = searchQuery.toLowerCase();
+filtered = filtered.filter(p => p.name.toLowerCase().includes(q));   // jo user search karega wahi product aayenge
 }
-
+return filtered;
+}
 function updateCartUI() {   // This is improtant one Cart items show karna , Total price calculate karna or quantity badge update karna
     let cartContainer = document.getElementById('cartItemsList');
     let totalSpan = document.getElementById('cartTotalPrice');
@@ -107,8 +105,10 @@ return `
 }).join('');
     }
  if (totalSpan) totalSpan.innerText = `₹${formatIndianPrice(total)}`;
- document.querySelectorAll('.cart-qty-up').forEach(btn => {
- btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.id), 1));  
+    
+    // Attach events
+    document.querySelectorAll('.cart-qty-up').forEach(btn => {
+        btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.id), 1));  
     });
     document.querySelectorAll('.cart-qty-down').forEach(btn => {
         btn.addEventListener('click', () => addToCart(parseInt(btn.dataset.id), -1));
@@ -218,8 +218,39 @@ container.innerHTML = categories.map(cat => `
         });
     });
 }
+
+function renderFeaturedProducts() {
+    let featured = [...productDatabase].slice(0, 8); let grid = document.getElementById('featuredGrid');
+ if (!grid) return;
+    
+    grid.innerHTML = featured.map(prod => {
+ let imgUrl = getProductImg(prod);
+   return `
+<div class="product-card" onclick="window.location.href='product-detail.html?id=${prod.id}'">
+<div class="product-img">
+ <img src="${imgUrl}" alt="${prod.name}" style="width:100%; height:180px; object-fit:cover;">
+  </div>
+    <div class="product-info">
+<div class="product-title">${prod.name}</div>
+ <div class="price">₹${formatIndianPrice(prod.price)}</div>
+  <button class="add-to-cart-btn" data-id="${prod.id}">
+  <i class="fas fa-shopping-cart"></i> Add To Cart 
+</button>
+ </div>
+ </div>
+        `;
+    }).join('');
+    
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn =>{ 
+        btn.addEventListener('click', (e) => {
+   e.stopPropagation();
+  addToCart(parseInt(btn.dataset.id), 1);
+});
+ });
+}
+
 function initCartSidebar() {
-    let cartIcon = document.getElementById('cartIcon');
+    let cartIcon = document.getElementById('cartIcon');  
     let sidebar = document.getElementById('cartSidebar');
     let overlay = document.getElementById('cartOverlay');
     let closeBtn = document.getElementById('closeCartBtn');
@@ -230,13 +261,16 @@ function initCartSidebar() {
     function openCart() { 
         if (sidebar) sidebar.classList.add('open'); 
         if (overlay) overlay.classList.add('show-overlay'); 
-}
-function closeCart() { 
-if (sidebar) sidebar.classList.remove('open'); 
-if (overlay) overlay.classList.remove('show-overlay'); }
-cartIcon.addEventListener('click', openCart);
-if (closeBtn) closeBtn.addEventListener('click', closeCart);
-if (overlay) overlay.addEventListener('click', closeCart);
+    }
+    
+    function closeCart() { 
+        if (sidebar) sidebar.classList.remove('open'); 
+        if (overlay) overlay.classList.remove('show-overlay'); 
+    }
+    
+    cartIcon.addEventListener('click', openCart);
+    if (closeBtn) closeBtn.addEventListener('click', closeCart);
+    if (overlay) overlay.addEventListener('click', closeCart);
     
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', () => {
@@ -253,20 +287,44 @@ if (overlay) overlay.addEventListener('click', closeCart);
         });
     }
 }
-function init() {
-    loadCart();
-    initCartSidebar();
+
+function initSearch() {
+ let searchInput = document.getElementById('searchInput');
+let searchBtn = document.getElementById('searchButton');
+   if (!searchInput || !searchBtn) return;
+let performSearch = () => { 
+        searchQuery = searchInput.value; 
+        renderProducts(); 
+    };
     
-    if (document.getElementById('categoryTabsList')) {
-        renderCategoryTabs();
-        renderProducts();
-        initSearch();
+    searchBtn.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', (e) => { 
+        if (e.key === 'Enter') performSearch(); 
+    });
 }
-    if (document.getElementById('featuredGrid')) {
-        renderFeaturedProducts();
+
+function loadCart() {
+let saved = localStorage.getItem('mycart_data');
+ if (saved) {
+cart = JSON.parse(saved);
+updateCartUI();
+ }
+}
+function saveCart() {
+localStorage.setItem('mycart_data', JSON.stringify(cart));
+}
+window.addEventListener('beforeunload', saveCart);
+function init() {
+loadCart();
+initCartSidebar();
+if (document.getElementById('categoryTabsList')) {
+renderCategoryTabs();renderProducts();
+initSearch();
     }
-    
-    updateCartUI();
+if (document.getElementById('featuredGrid')) {
+renderFeaturedProducts();
+    }
+updateCartUI();
 }
 
 init();
