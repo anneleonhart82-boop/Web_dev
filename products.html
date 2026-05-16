@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>MYCART | All Products</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="wrapper">
+ <div class="header">
+<div class="contact-number"><i class="fas fa-phone-alt"></i> +91 7894569000</div>
+<div class="promo-text">Get 50% off on Every Items | <a href="#">Shop Now</a></div>
+<div class="location"><span><i class="fas fa-globe"></i> Eng ▼</span><span><i class="fas fa-map-marker-alt"></i> Location ▼</span></div>
+</div>
+<div class="navbar">
+<div class="logo"><h2>MYCART</h2><span>Essential & Beyond</span></div>
+<div class="links">
+<a href="index.html">Home</a>
+ <a href="products.html" class="active">Products</a>
+ <a href="#">About</a>
+ <a href="#">Contact</a>
+ </div>
+<div class="icon" id="cartIcon">
+<i class="fas fa-shopping-cart"></i> Cart 
+<span id="cartCountBadge" class="cart-count">0</span>
+</div>
+</div>
+<div class="search-option">
+ <div class="search-container">
+<div class="search-box">
+<input type="text" id="searchInput" placeholder="Search Product...">
+<button id="searchButton"><i class="fas fa-search"></i> Search</button>
+</div>
+</div>
+<div class="categories-tab-row" id="categoryTabsList"></div>
+</div>
+<div class="products-area">
+<div class="section-header">
+<h3>🛍️ All Products Just for You🙌</h3>
+<div class="result-count" id="productCountDisplay">0 products</div>
+ </div>
+ <div id="productGrid" class="product-grid"></div>
+</div>
+<div class="footer">
+ <div class="footer-content">
+ <div class="footer-section">
+ <h4>MYCART</h4>
+<p>Your one-stop shop for everything Say thanks to me! 😎 Just kidding hehehe....</p>
+ </div>
+<div class="footer-section">
+<h4>Quick Links</h4>
+<a href="about.html">About Us</a>
+<a href="contact.html">Contact</a>
+</div>
+ <div class="footer-section">
+ <h4>Follow Us</h4>
+<div class="social-icons">
+<i class="fab fa-facebook"></i>
+<i class="fab fa-instagram"></i>
+<i class="fab fa-twitter"></i>
+</div>
+</div>
+</div>
+<div class="footer-bottom">© 2024 MYCART. All rights reserved. Don't Try TO Steal😜</div>
+</div>
+</div>
+<div class="overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+<div class="cart-header">
+<span><i class="fas fa-shopping-bag"></i> Your Cart ❤️</span>
+<button class="close-cart" id="closeCartBtn">&times;</button>
+</div>
+<div class="cart-items" id="cartItemsList">
+<div class="empty-cart">Your cart is empty</div>
+</div>
+<div class="cart-footer">
+<div class="total-row"><span>Total</span><span id="cartTotalPrice">₹0</span></div>
+<button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+</div>
+</div>
+<div id="globalToast" class="toast-message">✅ Item added to cart</div>
+
+    <script src="data/products.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

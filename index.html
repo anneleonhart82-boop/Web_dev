@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="css/style.css">
+   <title>MYCART | Home</title>
+    </head>
+<body>
+    <div class="wrapper">
+  <div class="header">
+ <div class="contact-number"><i class="phone"><img src="phone.jpg"></i> +91 7894569000</div>
+ <div class="promo-text">Get 50% off on Every Items | <a href="#">Shop Now</a></div>
+<div class="location"><span><i class="fas fa-globe"></i> Eng ▼</span><span><i class="fas fa-map-marker-alt"></i> Location ▼</span></div>
+</div>
+<div class="navbar">
+<div class="logo"><h2>MYCART</h2><span>Essential & Beyond</span></div>
+<div class="links">
+<a href="index.html" class="active">Home</a>
+<a href="products.html">Products</a>
+<a href="#">About</a>
+<a href="#">Contact</a>
+ </div>
+<div class="icon" id="cartIcon">
+<i class="fas fa-shopping-cart"></i> Cart 
+<span id="cartCountBadge" class="cart-count">0</span>
+ </div>
+</div>
+<div class="hero">
+<div class="hero-content">
+<h1>Summer Sale 2024</h1>
+<p>Up to 50% off on selected items</p>
+ <a href="products.html" class="hero-btn">Shop Now →</a>
+ </div>
+ </div>
+<div class="products-area">
+<div class="section-header">
+<h3>Featured Products</h3>
+  <a href="products.html" class="view-all">View All →</a>
+ </div>
+ <div id="featuredGrid" class="product-grid"></div>
+</div>
+<div class="footer">
+<div class="footer-content">
+<div class="footer-section">
+<h4>MYCART</h4>
+ <p>Your one-stop shop for everything</p>
+  </div>
+ <div class="footer-section">
+  <h4>Quick Links</h4>
+ <a href="about.html">About Us</a>
+  <a href="contact.html">Contact</a>
+ <a href="#">Privacy Policy</a>
+  </div>
+ <div class="footer-section">
+  <h4>Follow Us</h4>
+  <div class="social-icons">
+   <i class="facebook"></i>
+  <i class="instagram"></i>
+  <i class="twitter"></i>
+ </div>
+ </div>
+ </div>
+ <div class="footer-bottom">© 2024 MYCART. All rights reserved.</div>
+</div>
+</div>
+<div class="overlay" id="cartOverlay"></div>
+ <div class="cart-sidebar" id="cartSidebar">
+ <div class="cart-header">
+  <span><i class="fas fa-shopping-bag"></i> Your Cart❤️</span>
+  <button class="close-cart" id="closeCartBtn">&times;</button>
+</div>
+<div class="cart-items" id="cartItemsList">
+ <div class="empty-cart">Your cart is empty Feed me,I am hungry😩🙃</div>
+</div>
+<div class="cart-footer">
+<div class="total-row"><span>Total</span><span id="cartTotalPrice">₹0</span></div>
+<button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+</div>
+</div>
+<div id="globalToast" class="toast-message">✅ Item added to cart</div>
+<script src="data/products.js"></script>
+ <script src="js/main.js"></script>
+</body>
+</html>
